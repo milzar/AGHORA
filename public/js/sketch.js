@@ -19,7 +19,7 @@ function submitSketch() {
 function makeScreenshot() {
     var canvas = $('canvas')[0];
     var data = canvas.toDataURL('image/png').replace(/data:image\/png;base64,/, '');
-    console.log(data)
+    $.post('http://localhost:3000/submit-sketch', {data: data});
 }
 
 
