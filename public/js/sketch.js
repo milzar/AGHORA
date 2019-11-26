@@ -12,7 +12,14 @@ var cnv;
 
 function submitSketch() {
     console.log("Saving Sketch");
-    saveCanvas(cnv, 'faces', 'jpg');
+    makeScreenshot();
+}
+
+
+function makeScreenshot() {
+    var canvas = $('canvas')[0];
+    var data = canvas.toDataURL('image/png').replace(/data:image\/png;base64,/, '');
+    console.log(data)
 }
 
 
