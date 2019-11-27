@@ -12,11 +12,11 @@ var cnv;
 
 function submitSketch() {
     console.log("Saving Sketch");
-    makeScreenshot();
+    saveSketch();
 }
 
 
-function makeScreenshot() {
+function saveSketch() {
     var canvas = $('canvas')[0];
     var data = canvas.toDataURL('image/png').replace(/data:image\/png;base64,/, '');
     $.post('http://localhost:3000/submit-sketch', {data: data});
