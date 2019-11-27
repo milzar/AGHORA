@@ -124,7 +124,7 @@ doc.text('Thank you.', {
 
 // Image
 doc.translate(15, 430)
-   .image('images/01.jpg', 47, 20, {fit: [80, 80], align: 'center', valign: 'center'}, )
+    .image('images/sketch.jpg', 47, 20, {fit: [80, 80], align: 'center', valign: 'center'},)
    .rect(0, 0, 174, 120)
    .stroke()
    .moveDown(2);
