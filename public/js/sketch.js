@@ -17,9 +17,13 @@ function submitSketch() {
 
 
 function saveSketch() {
+    //Change this to the ip address of the server
+    var ipAddress = 'localhost';
+
     var canvas = $('canvas')[0];
     var data = canvas.toDataURL('image/png').replace(/data:image\/png;base64,/, '');
-    $.post('http://localhost:3000/submit-sketch', {data: data});
+
+    $.post('http://' + ipAddress + ':3000/submit-sketch', {data: data});
 }
 
 
