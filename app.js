@@ -9,6 +9,9 @@ var usersRouter = require('./routes/users');
 var indexRouter = require('./routes/index');
 var bodyParser = require('body-parser');
 
+var cors = require('cors');
+app.use(cors());
+
 app.use(bodyParser.json({limit: '10mb'}));
 app.use(bodyParser.urlencoded({extended: true, limit: '10mb'}));
 
