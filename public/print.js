@@ -41,18 +41,18 @@ const options = {  size: [204, 567],
         right: 15,
         top: 20
     }),
-    font: ('resources/cascadia.ttf'),
+    font: ('./resources/cascadia.ttf'),
     fontSize: 10,
     align: 'justify'
 };
 
 const printer = new CTLPrinter(printerName, options);
 printer.printCustom((doc, width, height, string = 'hey') => {
-   
-    
-doc.registerFont('h1', 'resources/FiraMono-Bold.ttf');
+
+
+    doc.registerFont('h1', __dirname + '/resources/fonts/cascadia.ttf');
 const h1 = 10;
-doc.registerFont('p', 'resources/cascadia.ttf');
+    doc.registerFont('p', __dirname + '/resources/fonts/FiraMono-Bold.ttf');
 const p = 10;
 
 // Title
@@ -117,14 +117,14 @@ doc.font('p')
 doc.text('Your contibution to AGHORA, a collective intelligence of all audiences, is making better democratic decisions compared to the leaders of today.', {
         align: 'center'    }) 
    .moveDown()
-   .font('h1')
+
 doc.text('Thank you.', {
         align: 'center'    })
    .moveDown(4);
 
 // Image
 doc.translate(15, 430)
-    .image('images/sketch.jpg', 47, 20, {fit: [80, 80], align: 'center', valign: 'center'},)
+    .image(__dirname + '/outputSketch/sketch.jpg', 47, 20, {fit: [80, 80], align: 'center', valign: 'center'},)
    .rect(0, 0, 174, 120)
    .stroke()
    .moveDown(2);
