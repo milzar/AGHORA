@@ -7,7 +7,7 @@ var d = today.getDate();
 var h = today.getHours();
 var m = today.getMinutes();
 var s = today.getSeconds();
-const TMP_DOC = './outputPDF/Slip_' + d + '_' + m + s + '.pdf';
+const TMP_DOC = __dirname + '/outputPDF/Slip_' + d + '_' + m + s + '.pdf';
 
 class CTLPrinter {
     constructor(printerName, options = {}) {
