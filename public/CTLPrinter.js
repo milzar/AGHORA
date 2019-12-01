@@ -7,7 +7,7 @@ var d = today.getDate();
 var h = today.getHours();
 var m = today.getMinutes();
 var s = today.getSeconds();
-const TMP_DOC = __dirname + '/outputPDF/Slip_' + d + '_' + m + s + '.pdf';
+TMP_DOC = __dirname + '/outputPDF/Slip_' + d + '_' + h + m + s + '.pdf';
 
 class CTLPrinter {
     constructor(printerName, options = {}) {
@@ -45,11 +45,11 @@ class CTLPrinter {
         doc.pipe(writeStream);
     }
 
-    _sendFile(file, { cutPage, cutDocument, printerName }, end) {
+    _sendFile(file, {cutPage, cutDocument, printerName}, end) {
         const child = spawn('lp', [
             '-d', printerName,
-            '-o', `PageCutType=${ cutPage ? '1PartialCutPage' : '0NoCutPage' }`,
-            '-o', `DocCutType=${ cutDocument ? '1PartialCutDoc' : '0NoCutDoc' }`,
+            '-o', `PageCutType=${cutPage ? '1PartialCutPage' : '0NoCutPage'}`,
+            '-o', `DocCutType=${cutDocument ? '1PartialCutDoc' : '0NoCutDoc'}`,
             file
         ]);
 
@@ -60,7 +60,7 @@ class CTLPrinter {
                 this.log("\n" + "Print added. ID: " + msg.split(' ')[3]);
             }
         });
-        
+
         child.stderr.on('data', data => {
             this._displayMessage('There was an error printing:', data.toString());
         });
@@ -115,12 +115,13 @@ class CTLPrinter {
             const doc = this._getDocument(_opts);
             this._createOutput(doc, _opts, resolve);
 
-            doc.image(image, 0, 0, { width: _opts.width });
+            doc.image(image, 0, 0, {width: _opts.width});
             doc.end();
         });
     }
 
     printCustom(drawFunc, options = {}) {
+        this.initializeFileName();
         return new Promise((resolve, reject) => {
             const _opts = this._mergeOptions(this.options, options);
 
@@ -140,9 +141,9 @@ class CTLPrinter {
         });
     }
 
-    _getDocument({ width, height, margins }) {
+    _getDocument({width, height, margins}) {
         return new PDFDocument({
-            size: [ width, height ],
+            size: [width, height],
             margins: margins
         });
     }
@@ -150,6 +151,17 @@ class CTLPrinter {
     log(msg) {
         // Possible TODO - Allow other reporting method
         console.log(msg);
+    }
+
+    initializeFileName() {
+        today = new Date();
+        d = today.getDate();
+        h = today.getHours();
+        m = today.getMinutes();
+        s = today.getSeconds();
+        this.defaults.file = TMP_DOC;
+        TMP_DOC = __dirname + '/outputPDF/Slip_' + d + '_' + h + m + s + '.pdf';
+        console.log("File name is " + TMP_DOC)
     }
 }
 
